@@ -8,6 +8,9 @@ import { useGallery } from '../hooks/useGallery';
 function Gallery() {
     const { data: photos, loading, error } = useGallery();
 
+    const accordionPhotos = photos ? photos.slice(0, 5) : [];
+    const overflowPhotos = photos ? photos.slice(5) : [];
+
     const containerVariants = {
         hidden: { opacity: 0 },
         show: {
@@ -55,41 +58,98 @@ function Gallery() {
                     </div>
                 )}
 
-                {!loading && !error && (
-                    <motion.div
-                        variants={containerVariants}
-                        initial="hidden"
-                        whileInView="show"
-                        viewport={{ once: true, margin: "-100px" }}
-                        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[200px] md:auto-rows-[250px]"
-                    >
-                        {photos.map((photo) => (
-                            <motion.div
-                                key={photo.id}
-                                variants={itemVariants}
-                                className={`relative rounded-xl overflow-hidden group bg-bg-surface border border-border ${photo.size === 'large'
-                                    ? 'col-span-2 row-span-2'
-                                    : 'col-span-1 row-span-1'
-                                    }`}
-                            >
-                                <img
-                                    src={photo.image}
-                                    alt={photo.caption}
-                                    loading="lazy"
-                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                                />
-                                {/* Hover overlay */}
-                                <div className="absolute inset-0 bg-gold/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6 mix-blend-multiply"></div>
+                {!loading && !error && accordionPhotos && (
+                    <div className="flex flex-col gap-4 mt-8">
+                        <motion.div
+                            variants={containerVariants}
+                            initial="hidden"
+                            whileInView="show"
+                            viewport={{ once: true, margin: "-100px" }}
+                            className="flex flex-col md:flex-row w-full h-[800px] md:h-[600px] gap-2 md:gap-4"
+                        >
+                            {accordionPhotos.map((photo, index) => (
+                                <motion.div
+                                    key={photo.id}
+                                    variants={itemVariants}
+                                    className="relative flex-1 md:flex-1 h-full cursor-pointer transition-all duration-[600ms] ease-[cubic-bezier(0.25,1,0.5,1)] hover:flex-[3] md:hover:flex-[4] rounded-2xl md:rounded-3xl overflow-hidden group bg-bg-surface border border-gold/10 hover:border-gold/50 shadow-lg"
+                                >
+                                    {/* Background Image */}
+                                    <img
+                                        src={photo.image}
+                                        alt={photo.caption}
+                                        loading="lazy"
+                                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-[800ms] group-hover:scale-105"
+                                    />
 
-                                {/* Text explicitly above the mix-blend layer */}
-                                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6 z-10">
-                                    <p className="font-display text-bg-primary text-xl md:text-2xl lg:text-3xl text-center leading-tight">
-                                        {photo.caption}
-                                    </p>
-                                </div>
+                                    {/* Gradient Overlay (Darkens the bottom for text readability) */}
+                                    <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black via-black/40 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-500"></div>
+
+                                    {/* Active Overlay (Subtle gold tint on hover) */}
+                                    <div className="absolute inset-0 bg-gold/20 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                                    {/* Content Elements */}
+                                    <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8">
+                                        {/* Numbering (always visible, top left) */}
+                                        <span className="absolute top-6 left-6 font-display text-gold/60 text-xl font-bold tracking-widest group-hover:text-gold transition-colors duration-300">
+                                            0{index + 1}
+                                        </span>
+
+                                        {/* Text Content Container (Hidden until hovered, or rotated if preferred. Here we fade it in on expand) */}
+                                        <div className="opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-100 flex flex-col gap-2 min-w-max">
+                                            <h3 className="font-display text-xl md:text-2xl lg:text-2xl text-white tracking-wider uppercase drop-shadow-md">
+                                                {photo.caption}
+                                            </h3>
+                                            <div className="w-10 h-1 bg-gold rounded-full transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 delay-300"></div>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </motion.div>
+
+                        {/* Overflow Grid for photos 7+ */}
+                        {overflowPhotos.length > 0 && (
+                            <motion.div
+                                variants={containerVariants}
+                                initial="hidden"
+                                whileInView="show"
+                                viewport={{ once: true, margin: "-100px" }}
+                                className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4 pt-4 border-t border-yellow-500/20"
+                            >
+                                {overflowPhotos.map((photo) => (
+                                    <motion.div
+                                        key={photo.id}
+                                        variants={itemVariants}
+                                        className="relative w-full aspect-square cursor-pointer transition-all duration-[600ms] rounded-2xl md:rounded-3xl overflow-hidden group bg-bg-surface border border-gold/10 hover:border-gold/50 shadow-lg"
+                                    >
+                                        {/* Background Image */}
+                                        <img
+                                            src={photo.image}
+                                            alt={photo.caption}
+                                            loading="lazy"
+                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-[800ms] group-hover:scale-105"
+                                        />
+
+                                        {/* Gradient Overlay */}
+                                        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black via-black/40 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-500"></div>
+
+                                        {/* Active Overlay */}
+                                        <div className="absolute inset-0 bg-gold/20 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                                        {/* Content Elements */}
+                                        <div className="absolute inset-0 flex flex-col justify-end p-4 md:p-6">
+                                            {/* Text Content Container (Hidden until hovered) */}
+                                            <div className="opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-100 flex flex-col gap-1 min-w-max">
+                                                <h3 className="font-display text-base md:text-lg lg:text-xl text-white tracking-wider uppercase drop-shadow-md">
+                                                    {photo.caption}
+                                                </h3>
+                                                <div className="w-6 h-1 bg-gold rounded-full transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 delay-300"></div>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                ))}
                             </motion.div>
-                        ))}
-                    </motion.div>
+                        )}
+                    </div>
                 )}
             </div>
         </section>

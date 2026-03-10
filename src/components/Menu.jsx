@@ -61,24 +61,34 @@ function Menu() {
             <div className="container mx-auto px-6 max-w-6xl">
                 {/* Loading State */}
                 {loading && (
-                    <div className="flex justify-center items-center py-20">
-                        <div className="w-12 h-12 border-4 border-bg-surface border-t-gold rounded-full animate-spin"></div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 gap-y-10 mt-8">
+                        {Array.from({ length: 6 }).map((_, i) => (
+                            <div key={i} className="w-full aspect-[4/5] rounded-2xl bg-[#141414] border border-yellow-500/20 animate-pulse flex flex-col items-center justify-between p-4 pb-6">
+                                <div className="w-full h-[65%] rounded-xl bg-white/5"></div>
+                                <div className="w-full flex flex-col items-center mt-4">
+                                    <div className="w-3/4 h-6 rounded bg-white/5 mb-5 mt-auto"></div>
+                                    <div className="w-1/2 h-5 rounded bg-white/5"></div>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 )}
 
                 {/* Error State */}
-                {error && (
-                    <div className="text-center py-20 bg-bg-surface rounded-xl border border-error/50">
-                        <p className="text-error font-body font-bold text-lg mb-2">Failed to load menu</p>
-                        <p className="text-text-secondary">{error}</p>
+                {error && !loading && (
+                    <div className="flex flex-col items-center justify-center text-center py-20 md:py-32 bg-bg-surface/30 rounded-2xl border border-white/5 mt-8">
+                        <span className="text-4xl mb-4 opacity-50 grayscale">⚠️</span>
+                        <h3 className="font-display tracking-widest text-text-primary uppercase text-lg mb-2 text-gold/80">Menu temporarily unavailable.</h3>
+                        <p className="font-body text-text-secondary/70">Please visit us in San Isidro, Bombon.</p>
+                        <p className="font-body text-xs text-error/30 mt-6 capitalize">{error}</p>
                     </div>
                 )}
 
                 {/* Not Loading, No Error, and Empty */}
                 {!loading && !error && filteredItems.length === 0 && (
-                    <div className="text-center py-20">
-                        <p className="font-body text-text-secondary text-lg">
-                            No items found in this category.
+                    <div className="flex flex-col items-center justify-center text-center py-20 md:py-32">
+                        <p className="font-display tracking-widest text-gold/60 text-lg uppercase">
+                            No items in this category yet.
                         </p>
                     </div>
                 )}
@@ -100,8 +110,8 @@ function Menu() {
                             >
                                 <MenuCard
                                     name={item.name}
-                                    price={item.price}
-                                    imageSrc={item.image}
+                                    sizes={item.sizes}
+                                    imageSrc={item.imageUrl}
                                     category={item.category}
                                 />
                             </motion.div>
