@@ -34,7 +34,13 @@ export function useMenu() {
             }
         });
 
-        return { mapped: Object.values(grouped), categories: Array.from(uniqueCategories) };
+        // Sort sizes within each product by price ascending (Small → Large)
+        const mapped = Object.values(grouped);
+        mapped.forEach(product => {
+            product.sizes.sort((a, b) => a.price - b.price);
+        });
+
+        return { mapped, categories: Array.from(uniqueCategories) };
     };
 
     useEffect(() => {
