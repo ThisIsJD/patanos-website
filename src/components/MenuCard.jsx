@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 /**
  * MenuCard — Image-forward poster-style card for the Patanos menu.
  * Uses Tailwind CSS exclusively for styling.
@@ -11,19 +13,23 @@
  *   category    — Category label
  */
 function MenuCard({ name, description, sizes, imageSrc, imageAlt, category }) {
+  const [imageLoaded, setImageLoaded] = useState(false);
   return (
     <article className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden bg-bg-secondary border-2 border-gold/40 group cursor-pointer transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_30px_rgba(245,192,0,0.3)] hover:border-gold flex flex-col items-center justify-between p-4 pb-6">
 
       {/* Product Image (Floating) */}
       <div className="w-full h-1/2 relative flex items-center justify-center mt-2">
         {/* Subtle glow behind image on hover */}
+        <div className="absolute w-full h-full bg-[#141414] animate-pulse rounded-2xl" style={{ display: imageLoaded ? 'none' : 'block' }}></div>
         <div className="absolute w-3/4 h-3/4 bg-gold/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
         <img
           src={imageSrc}
           alt={imageAlt || name}
           loading="lazy"
-          onError={(e) => { e.target.src = '/placeholder-drink.png'; }}
-          className="relative z-10 w-full h-full object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-110 group-hover:-translate-y-2"
+          onLoad={() => setImageLoaded(true)}
+          onError={(e) => { e.target.src = '/placeholder-drink.png'; setImageLoaded(true); }}
+          style={{ opacity: imageLoaded ? 1 : 0 }}
+          className="relative z-10 w-full h-full object-contain drop-shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:-translate-y-2"
         />
       </div>
 

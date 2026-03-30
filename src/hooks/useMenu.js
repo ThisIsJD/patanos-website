@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-// import { menuFallback, categories as fallbackCategories } from '../data/menuFallback';
+import { supabase } from '../lib/supabase';
 
 export function useMenu() {
     const [data, setData] = useState([]);
@@ -7,60 +7,79 @@ export function useMenu() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const processItems = (items) => {
+        const grouped = {};
+        const uniqueCategories = new Set();
+
+        items.forEach(item => {
+            const categoryName = item.categories?.name || 'Uncategorized';
+            const key = `${item.name}__${categoryName}`;
+            uniqueCategories.add(categoryName);
+
+            if (!grouped[key]) {
+                grouped[key] = {
+                    id: item.id,
+                    name: item.name,
+                    category: categoryName,
+                    description: item.description,
+                    imageUrl: item.image_url || null,
+                    sizes: []
+                };
+            }
+            if (item.size_label || item.price) {
+                grouped[key].sizes.push({
+                    size: item.size_label || 'Regular',
+                    price: item.price || 0
+                });
+            }
+        });
+
+        return { mapped: Object.values(grouped), categories: Array.from(uniqueCategories) };
+    };
+
     useEffect(() => {
+        let isMounted = true;
+
         const fetchMenu = async () => {
             try {
-                setLoading(true);
+                const { data: items, error: fetchError } = await supabase
+                    .from('menu_items')
+                    .select('*, categories(name)')
+                    .eq('status', 'published')
+                    .eq('available', true)
+                    .order('name');
 
-                const url = `${import.meta.env.VITE_DIRECTUS_URL}/items/menu?filter[available][_eq]=true&sort=category,name`;
-                const res = await fetch(url);
+                if (fetchError) throw fetchError;
 
-                if (!res.ok) {
-                    throw new Error(`Failed to fetch menu: ${res.statusText}`);
+                const result = processItems(items || []);
+                if (isMounted) {
+                    setData(result.mapped);
+                    setCategories(result.categories);
+                    setError(null);
+                    setLoading(false);
                 }
-
-                const response = await res.json();
-
-                const grouped = {};
-                const uniqueCategories = new Set();
-
-                response.data.forEach(item => {
-                    const key = `${item.name}__${item.category}`;
-                    uniqueCategories.add(item.category);
-
-                    if (!grouped[key]) {
-                        grouped[key] = {
-                            id: item.id,
-                            name: item.name,
-                            category: item.category,
-                            description: item.description,
-                            imageUrl: item.image ? `${import.meta.env.VITE_DIRECTUS_URL}/assets/${item.image}` : null,
-                            sizes: []
-                        };
-                    }
-                    if (item.size_ || item.price) {
-                        grouped[key].sizes.push({
-                            size: item.size_ || 'Regular',
-                            price: parseFloat(item.price || 0)
-                        });
-                    }
-                });
-
-                const mapped = Object.values(grouped);
-                console.log('Directus connected ✅', mapped.length, 'menu cards loaded');
-
-                setData(mapped);
-                setCategories(Array.from(uniqueCategories));
-                setError(null);
             } catch (err) {
-                console.error("Directus Connection Error:", err);
-                setError(err.message || 'Failed to load menu data');
-            } finally {
-                setLoading(false);
+                if (isMounted) {
+                    setError(err.message || 'Failed to load menu data');
+                    setLoading(false);
+                }
             }
         };
 
         fetchMenu();
+
+        // Realtime subscription replaces 5s polling
+        const channel = supabase
+            .channel('menu_items_public')
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'menu_items' }, () => {
+                fetchMenu();
+            })
+            .subscribe();
+
+        return () => {
+            isMounted = false;
+            supabase.removeChannel(channel);
+        };
     }, []);
 
     return { data, categories, loading, error };

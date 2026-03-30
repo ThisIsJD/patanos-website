@@ -4,7 +4,7 @@
  */
 function MenuCategoryNav({ activeCategory, setActiveCategory, categories }) {
     return (
-        <div className="sticky top-[72px] md:top-[88px] z-40 bg-bg-primary/95 backdrop-blur-md py-4 mb-12 shadow-md">
+        <div className="bg-bg-primary/95 backdrop-blur-md py-4 mb-12 shadow-md">
             <div className="container mx-auto px-6 max-w-6xl">
                 <ul className="flex items-center justify-center gap-3 md:gap-4 overflow-x-auto no-scrollbar pb-2 mask-linear">
                     {categories.map((category) => (

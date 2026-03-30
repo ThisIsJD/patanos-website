@@ -2,13 +2,46 @@
  * Footer — Minimal dark footer for the Patanos Sip Sensations website.
  */
 
+import { useState } from 'react';
 import logo from '../assets/Brand/Patanos_logo.png';
 
 function Footer() {
     const currentYear = new Date().getFullYear();
+    const [mapStatus, setMapStatus] = useState('idle');
+
+    const handleGetDirections = (e) => {
+        e.preventDefault();
+        setMapStatus('loading');
+
+        const destination = "Patanos+Sip+Sensations,+San+Isidro,+Bombon,+Camarines+Sur,+Philippines";
+
+        if (!navigator.geolocation) {
+            fallbackMaps(destination);
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const { latitude, longitude } = position.coords;
+                window.open(`https://www.google.com/maps/dir/?api=1&origin=${latitude},${longitude}&destination=${destination}&travelmode=driving`, '_blank');
+                setMapStatus('idle');
+            },
+            () => {
+                fallbackMaps(destination);
+            }
+        );
+    };
+
+    const fallbackMaps = (destination) => {
+        setMapStatus('error');
+        setTimeout(() => {
+            window.open(`https://www.google.com/maps/search/?api=1&query=${destination}`, '_blank');
+            setMapStatus('idle');
+        }, 1000);
+    };
 
     return (
-        <footer className="bg-bg-primary pt-24 pb-8 border-t-4 border-gold">
+        <footer id="visit-us" className="bg-bg-primary pt-24 pb-8 border-t-4 border-gold">
             <div className="container mx-auto px-6 max-w-6xl">
 
                 {/* Header */}
@@ -20,11 +53,18 @@ function Footer() {
                 </div>
 
                 <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 mb-20 items-center">
-                    {/* Left: Map Placeholder */}
+                    {/* Left: Google Maps Interactive Embed */}
                     <div className="w-full lg:w-1/2">
-                        <div className="w-full aspect-[4/3] bg-bg-secondary flex items-center justify-center border border-border">
-                            <span className="font-body tracking-wider text-text-secondary">[ Map Area ]</span>
-                        </div>
+                        <iframe
+                            src="https://www.google.com/maps?q=Patanos+Sip+Sensations,+San+Isidro,+Bombon,+Camarines+Sur,+Philippines&output=embed"
+                            width="100%"
+                            height="400"
+                            style={{ border: 0, borderRadius: '12px' }}
+                            allowFullScreen
+                            loading="lazy"
+                            referrerPolicy="no-referrer-when-downgrade"
+                            title="Patanos Sip Sensations Location"
+                        />
                     </div>
 
                     {/* Right: Details */}
@@ -62,9 +102,23 @@ function Footer() {
                         </div>
 
                         <div className="mt-4">
-                            <a href="#" className="inline-block bg-gold text-on-gold font-bold font-body text-sm tracking-widest px-8 py-4 transition-colors hover:bg-gold-dark uppercase">
-                                GET DIRECTIONS
-                            </a>
+                            <button
+                                onClick={handleGetDirections}
+                                disabled={mapStatus === 'loading'}
+                                className="inline-flex items-center gap-2 bg-gold text-on-gold font-bold font-body text-sm tracking-widest px-8 py-4 transition-colors hover:bg-gold-dark uppercase disabled:opacity-75 disabled:cursor-wait"
+                            >
+                                {mapStatus === 'idle' && (
+                                    <>
+                                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                        GET DIRECTIONS
+                                    </>
+                                )}
+                                {mapStatus === 'loading' && 'Getting your location...'}
+                                {mapStatus === 'error' && 'Opening Maps...'}
+                            </button>
                         </div>
                     </div>
                 </div>

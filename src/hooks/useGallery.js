@@ -1,8 +1,5 @@
 import { useState, useEffect } from 'react';
-import { galleryPhotos } from '../data/galleryData';
-
-// TODO Day 5: Replace with Directus fetch 
-// if gallery is moved to CMS
+import { supabase } from '../lib/supabase';
 
 export function useGallery() {
     const [data, setData] = useState([]);
@@ -10,22 +7,53 @@ export function useGallery() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        // Simulate network request to allow for clean UI loading states
+        let isMounted = true;
+
         const fetchGallery = async () => {
             try {
-                setLoading(true);
-                // Fake delay
-                await new Promise(resolve => setTimeout(resolve, 300));
-                setData(galleryPhotos);
-                setError(null);
+                const { data: photos, error: fetchError } = await supabase
+                    .from('gallery_photos')
+                    .select('*')
+                    .eq('status', 'published')
+                    .order('sort_order');
+
+                if (fetchError) throw fetchError;
+
+                const mapped = (photos || []).map(item => ({
+                    id: item.id,
+                    caption: item.caption,
+                    imageUrl: item.image_url,
+                    link: item.link_url || null,
+                    sort: item.sort_order
+                }));
+
+                if (isMounted) {
+                    setData(mapped);
+                    setError(null);
+                    setLoading(false);
+                }
             } catch (err) {
-                setError(err.message || 'Failed to load gallery data');
-            } finally {
-                setLoading(false);
+                if (isMounted) {
+                    setError(err.message || 'Failed to load gallery data');
+                    setLoading(false);
+                }
             }
         };
 
         fetchGallery();
+
+        // Realtime subscription replaces 5s polling
+        const channel = supabase
+            .channel('gallery_photos_public')
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'gallery_photos' }, () => {
+                fetchGallery();
+            })
+            .subscribe();
+
+        return () => {
+            isMounted = false;
+            supabase.removeChannel(channel);
+        };
     }, []);
 
     return { data, loading, error };

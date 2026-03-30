@@ -25,8 +25,8 @@ function Navbar() {
         { name: 'Menu', href: '#menu' },
         { name: 'Testimonials', href: '#testimonials' },
         { name: 'Gallery', href: '#gallery' },
-        { name: 'Franchise', href: '#contact' },
-        { name: 'Contact', href: '#contact' },
+        { name: 'Franchise', href: '#franchise' },
+        { name: 'Contact', href: '#visit-us' },
     ];
 
     return (

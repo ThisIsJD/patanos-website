@@ -60,7 +60,7 @@ function Hero() {
                 {/* Subtext */}
                 <motion.p
                     variants={itemVariants}
-                    className="font-body text-text-secondary text-lg md:text-xl lg:text-2xl max-w-2xl mb-10 leading-relaxed"
+                    className="font-body text-text-primary text-lg md:text-xl lg:text-2xl max-w-2xl mb-10 leading-relaxed"
                 >
                     A bold beverage experience. Hand-crafted drinks made with passion,
                     premium ingredients, and a touch of local flavor in Bombon.
