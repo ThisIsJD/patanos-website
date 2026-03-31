@@ -25,7 +25,7 @@ function About() {
     };
 
     return (
-        <section id="about" className="py-24 md:py-32 bg-bg-secondary relative overflow-hidden">
+        <section id="about" className="py-16 sm:py-24 md:py-32 bg-bg-secondary relative overflow-hidden">
             <div className="container mx-auto px-6 max-w-6xl">
                 <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
 
@@ -37,7 +37,7 @@ function About() {
                         viewport={{ once: true, margin: "-100px" }}
                         variants={textVariants}
                     >
-                        <h2 className="font-display text-4xl md:text-5xl uppercase tracking-widest leading-tight mb-4 text-white flex flex-col">
+                        <h2 className="font-display text-3xl sm:text-4xl md:text-5xl uppercase tracking-widest leading-tight mb-4 text-white flex flex-col">
                             <span>OUR STRAIGHT PATH TO</span>
                             <span className="text-gold">FLAVOR</span>
                         </h2>
@@ -87,11 +87,11 @@ function About() {
                         variants={imageVariants}
                     >
                         <div className="relative rounded-2xl overflow-hidden shadow-2xl group border border-gold border-opacity-30">
-                            <div className="absolute inset-0 bg-gradient-to-tr from-gold/10 to-transparent mix-blend-overlay z-10 transition-opacity duration-500 group-hover:opacity-0"></div>
+                            <div className="absolute inset-0 bg-gradient-to-tr from-gold/10 to-transparent mix-blend-overlay z-10 transition-opacity duration-500 group-hover:opacity-0 group-active:opacity-0"></div>
                             <img
                                 src={storeImage}
                                 alt="Patanos Sip Sensations community hangout"
-                                className="w-full h-auto object-cover aspect-[4/3] transform transition-transform duration-700 group-hover:scale-105"
+                                className="w-full h-auto object-cover aspect-[4/3] transform transition-transform duration-700 group-hover:scale-105 group-active:scale-105"
                                 loading="lazy"
                             />
                         </div>

@@ -35,8 +35,8 @@ function Navbar() {
             animate={{ y: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-                ? 'bg-bg-primary/95 backdrop-blur-md border-b border-border-gold shadow-lg py-4'
-                : 'bg-transparent py-6'
+                ? 'bg-bg-primary/70 backdrop-blur-md border-b border-border-gold shadow-lg py-4'
+                : 'bg-bg-primary/30 backdrop-blur-sm py-6'
                 }`}
         >
             <div className="container mx-auto px-6 max-w-6xl flex justify-between items-center">
@@ -55,7 +55,7 @@ function Navbar() {
                         <a
                             key={link.name}
                             href={link.href}
-                            className="text-text-primary hover:text-gold font-body text-sm uppercase tracking-wider font-semibold transition-colors relative group"
+                            className="text-text-primary hover:text-gold active:text-gold font-body text-sm uppercase tracking-wider font-semibold transition-colors relative group"
                         >
                             {link.name}
                             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-full"></span>
@@ -91,7 +91,7 @@ function Navbar() {
                                 key={link.name}
                                 href={link.href}
                                 onClick={() => setMobileMenuOpen(false)}
-                                className="text-text-primary hover:text-gold font-body text-lg font-semibold py-2"
+                                className="text-text-primary hover:text-gold active:text-gold font-body text-lg font-semibold py-2 transition-colors"
                             >
                                 {link.name}
                             </a>

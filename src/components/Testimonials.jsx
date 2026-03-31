@@ -27,7 +27,7 @@ function Testimonials() {
     ];
 
     return (
-        <section id="testimonials" className="py-24 bg-bg-primary">
+        <section id="testimonials" className="py-14 sm:py-24 bg-bg-primary">
             <div className="container mx-auto px-6 max-w-6xl">
 
                 {/* Header */}
@@ -36,7 +36,7 @@ function Testimonials() {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
-                        className="font-display text-4xl md:text-5xl uppercase tracking-widest text-white mb-4"
+                        className="font-display text-3xl sm:text-4xl md:text-5xl uppercase tracking-widest text-white mb-4"
                     >
                         WHAT PEOPLE SAY
                     </motion.h2>

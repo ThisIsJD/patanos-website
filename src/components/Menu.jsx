@@ -21,14 +21,14 @@ function Menu() {
     }, [menuItems, activeCategory]);
 
     return (
-        <section id="menu" className="py-24 bg-bg-primary min-h-screen">
+        <section id="menu" className="py-14 sm:py-24 bg-bg-primary min-h-screen">
             {/* Menu Header */}
-            <div className="container mx-auto px-6 max-w-6xl text-center mb-10">
+            <div className="container mx-auto px-4 sm:px-6 max-w-6xl text-center mb-6 sm:mb-10">
                 <motion.h2
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-50px" }}
-                    className="font-display text-4xl md:text-5xl uppercase tracking-widest text-white mb-4"
+                    className="font-display text-3xl sm:text-4xl md:text-5xl uppercase tracking-widest text-white mb-4"
                 >
                     OUR <span className="text-gold">MENU</span>
                 </motion.h2>
@@ -44,7 +44,7 @@ function Menu() {
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
-                    className="font-body text-text-secondary max-w-xl mx-auto text-lg"
+                    className="font-body text-text-secondary max-w-xl mx-auto text-sm sm:text-lg"
                 >
                     Hand-crafted from scratch. Discover your next favorite craving.
                 </motion.p>
@@ -58,12 +58,12 @@ function Menu() {
             />
 
             {/* Menu Grid */}
-            <div className="container mx-auto px-6 max-w-6xl">
+            <div className="container mx-auto px-3 sm:px-6 max-w-6xl">
                 {/* Loading State */}
                 {loading && (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 gap-y-10 mt-8">
+                    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 gap-y-6 sm:gap-y-10 mt-6 sm:mt-8">
                         {Array.from({ length: 6 }).map((_, i) => (
-                            <div key={i} className="w-full aspect-[4/5] rounded-2xl bg-[#141414] border border-yellow-500/20 animate-pulse flex flex-col items-center justify-between p-4 pb-6">
+                            <div key={i} className="w-full aspect-[3/4] sm:aspect-[4/5] rounded-xl sm:rounded-2xl bg-[#141414] border border-yellow-500/20 animate-pulse flex flex-col items-center justify-between p-3 pb-4 sm:p-4 sm:pb-6">
                                 <div className="w-full h-[65%] rounded-xl bg-white/5"></div>
                                 <div className="w-full flex flex-col items-center mt-4">
                                     <div className="w-3/4 h-6 rounded bg-white/5 mb-5 mt-auto"></div>
@@ -96,7 +96,7 @@ function Menu() {
                 {/* Data Grid with AnimatePresence for smooth category switching */}
                 <motion.div
                     layout
-                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 gap-y-10 mt-8"
+                    className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 gap-y-6 sm:gap-y-10 mt-6 sm:mt-8"
                 >
                     <AnimatePresence mode="popLayout">
                         {filteredItems.map((item) => (

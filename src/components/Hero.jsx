@@ -52,15 +52,15 @@ function Hero() {
                 {/* Heading */}
                 <motion.h1
                     variants={itemVariants}
-                    className="font-display text-text-primary text-5xl md:text-7xl lg:text-8xl leading-[1.1] mb-6 tracking-wide drop-shadow-md"
+                    className="font-display text-text-primary text-3xl sm:text-5xl md:text-7xl lg:text-8xl leading-[1.1] mb-4 sm:mb-6 tracking-wide drop-shadow-md"
                 >
-                    <span className="text-gold block mb-2">SIP SENSATIONS</span>
+                    <span className="text-gold block mb-1 sm:mb-2">SIP SENSATIONS</span>
                 </motion.h1>
 
                 {/* Subtext */}
                 <motion.p
                     variants={itemVariants}
-                    className="font-body text-text-primary text-lg md:text-xl lg:text-2xl max-w-2xl mb-10 leading-relaxed"
+                    className="font-body text-text-primary text-sm sm:text-lg md:text-xl lg:text-2xl max-w-2xl mb-6 sm:mb-10 leading-relaxed px-2 sm:px-0"
                 >
                     A bold beverage experience. Hand-crafted drinks made with passion,
                     premium ingredients, and a touch of local flavor in Bombon.
@@ -70,7 +70,7 @@ function Hero() {
                 <motion.div variants={itemVariants}>
                     <a
                         href="#menu"
-                        className="inline-flex items-center justify-center font-body font-bold text-sm md:text-base uppercase tracking-wider bg-gold text-on-gold px-8 py-4 rounded-md transition-all duration-300 hover:bg-gold-dark hover:scale-105 shadow-gold hover:shadow-gold-lg"
+                        className="inline-flex items-center justify-center font-body font-bold text-xs sm:text-sm md:text-base uppercase tracking-wider bg-gold text-on-gold px-6 py-3 sm:px-8 sm:py-4 rounded-md transition-all duration-300 hover:bg-gold-dark active:bg-gold-dark hover:scale-105 active:scale-95 shadow-gold hover:shadow-gold-lg"
                     >
                         VIEW MENU
                     </a>

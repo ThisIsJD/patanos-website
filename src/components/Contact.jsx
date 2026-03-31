@@ -21,7 +21,7 @@ function Contact() {
     };
 
     return (
-        <section id="franchise" className="py-24 bg-bg-primary relative overflow-hidden">
+        <section id="franchise" className="py-14 sm:py-24 bg-bg-primary relative overflow-hidden">
             {/* Decorative background circle */}
             <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-[600px] h-[600px] bg-gold/5 rounded-full blur-3xl pointer-events-none"></div>
 
@@ -33,7 +33,7 @@ function Contact() {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
-                        className="font-display text-4xl md:text-5xl lg:text-6xl text-white uppercase tracking-widest mb-4 flex flex-col md:flex-row items-center justify-center gap-2"
+                        className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white uppercase tracking-widest mb-4 flex flex-col md:flex-row items-center justify-center gap-2"
                     >
                         <span>JOIN THE</span> <span className="text-gold">PATANOS FAMILY</span>
                     </motion.h2>

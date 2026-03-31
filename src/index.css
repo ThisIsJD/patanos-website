@@ -122,6 +122,10 @@
 }
 
 /* ── Base Resets ── */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: var(--font-body);
   background-color: var(--bg-primary);
@@ -129,6 +133,12 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Offset for fixed navbar */
+section[id],
+footer[id] {
+  scroll-margin-top: 80px;
 }
 
 h1, h2, h3 {
