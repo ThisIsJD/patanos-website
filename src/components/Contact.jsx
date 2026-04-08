@@ -23,7 +23,7 @@ function Contact() {
     return (
         <section id="franchise" className="py-14 sm:py-24 bg-bg-primary relative overflow-hidden">
             {/* Decorative background circle */}
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-[600px] h-[600px] bg-gold/5 rounded-full blur-3xl pointer-events-none"></div>
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-150 h-150 bg-gold/5 rounded-full blur-3xl pointer-events-none"></div>
 
             <div className="container mx-auto px-6 max-w-5xl relative z-10 flex flex-col items-center">
 

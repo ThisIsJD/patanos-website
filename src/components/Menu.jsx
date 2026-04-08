@@ -63,7 +63,7 @@ function Menu() {
                 {loading && (
                     <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 gap-y-6 sm:gap-y-10 mt-6 sm:mt-8">
                         {Array.from({ length: 6 }).map((_, i) => (
-                            <div key={i} className="w-full aspect-[3/4] sm:aspect-[4/5] rounded-xl sm:rounded-2xl bg-[#141414] border border-yellow-500/20 animate-pulse flex flex-col items-center justify-between p-3 pb-4 sm:p-4 sm:pb-6">
+                            <div key={i} className="w-full aspect-3/4 sm:aspect-4/5 rounded-xl sm:rounded-2xl bg-bg-secondary border border-yellow-500/20 animate-pulse flex flex-col items-center justify-between p-3 pb-4 sm:p-4 sm:pb-6">
                                 <div className="w-full h-[65%] rounded-xl bg-white/5"></div>
                                 <div className="w-full flex flex-col items-center mt-4">
                                     <div className="w-3/4 h-6 rounded bg-white/5 mb-5 mt-auto"></div>
@@ -78,7 +78,7 @@ function Menu() {
                 {error && !loading && (
                     <div className="flex flex-col items-center justify-center text-center py-20 md:py-32 bg-bg-surface/30 rounded-2xl border border-white/5 mt-8">
                         <span className="text-4xl mb-4 opacity-50 grayscale">⚠️</span>
-                        <h3 className="font-display tracking-widest text-text-primary uppercase text-lg mb-2 text-gold/80">Menu temporarily unavailable.</h3>
+                        <h3 className="font-display tracking-widest text-text-primary uppercase text-lg mb-2">Menu temporarily unavailable.</h3>
                         <p className="font-body text-text-secondary/70">Please visit us in San Isidro, Bombon.</p>
                         <p className="font-body text-xs text-error/30 mt-6 capitalize">{error}</p>
                     </div>

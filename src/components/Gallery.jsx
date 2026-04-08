@@ -6,7 +6,7 @@ const GalleryImage = ({ src, alt, className }) => {
     const [loaded, setLoaded] = useState(false);
     return (
         <>
-            {!loaded && <div className={`absolute inset-0 bg-[#2A2A2A] animate-pulse ${className?.includes('rounded') ? 'rounded-2xl md:rounded-3xl' : ''}`}></div>}
+            {!loaded && <div className={`absolute inset-0 bg-border animate-pulse ${className?.includes('rounded') ? 'rounded-2xl md:rounded-3xl' : ''}`}></div>}
             <img
                 src={src}
                 alt={alt}
@@ -66,9 +66,9 @@ function Gallery() {
 
                 {loading && (
                     <div className="flex flex-col gap-4 mt-8">
-                        <div className="grid grid-cols-2 gap-2 md:flex md:flex-row w-full md:h-[600px] md:gap-4">
+                        <div className="grid grid-cols-2 gap-2 md:flex md:flex-row w-full md:h-150 md:gap-4">
                             {Array.from({ length: 6 }).map((_, i) => (
-                                <div key={i} className="aspect-square md:aspect-auto md:flex-1 md:h-full rounded-xl md:rounded-3xl bg-[#141414] border border-yellow-500/20 animate-pulse"></div>
+                                <div key={i} className="aspect-square md:aspect-auto md:flex-1 md:h-full rounded-xl md:rounded-3xl bg-bg-secondary border border-yellow-500/20 animate-pulse"></div>
                             ))}
                         </div>
                     </div>
@@ -77,7 +77,7 @@ function Gallery() {
                 {error && !loading && (
                     <div className="flex flex-col items-center justify-center text-center py-20 md:py-32 bg-bg-surface/30 rounded-2xl border border-white/5 mt-8">
                         <span className="text-4xl mb-4 opacity-50 grayscale">⚠️</span>
-                        <h3 className="font-display tracking-widest text-text-primary uppercase text-lg mb-2 text-gold/80">Gallery temporarily unavailable.</h3>
+                        <h3 className="font-display tracking-widest text-text-primary uppercase text-lg mb-2">Gallery temporarily unavailable.</h3>
                         <p className="font-body text-text-secondary/70">Please visit us in San Isidro, Bombon.</p>
                         <p className="font-body text-xs text-error/30 mt-6 capitalize">{error}</p>
                     </div>
@@ -90,7 +90,7 @@ function Gallery() {
                             initial="hidden"
                             whileInView="show"
                             viewport={{ once: true, margin: "-100px" }}
-                            className="grid grid-cols-2 gap-2 md:flex md:flex-row w-full md:h-[600px] md:gap-4"
+                            className="grid grid-cols-2 gap-2 md:flex md:flex-row w-full md:h-150 md:gap-4"
                         >
                             {accordionPhotos.map((photo, index) => {
                                 const imageSrc = photo.imageUrl || photo.image;
@@ -100,11 +100,11 @@ function Gallery() {
                                         <GalleryImage
                                             src={imageSrc}
                                             alt={photo.caption}
-                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-[800ms] group-hover:scale-105 group-active:scale-105"
+                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-800 group-hover:scale-105 group-active:scale-105"
                                         />
 
                                         {/* Gradient Overlay — always visible on mobile, hover on desktop */}
-                                        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80 md:opacity-60 md:group-hover:opacity-90 transition-opacity duration-500"></div>
+                                        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-linear-to-t from-black via-black/40 to-transparent opacity-80 md:opacity-60 md:group-hover:opacity-90 transition-opacity duration-500"></div>
 
                                         {/* Active Overlay (Subtle gold tint on hover/tap) */}
                                         <div className="absolute inset-0 bg-gold/20 mix-blend-overlay opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-500"></div>
@@ -176,11 +176,11 @@ function Gallery() {
                                             <GalleryImage
                                                 src={imageSrc}
                                                 alt={photo.caption}
-                                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-[800ms] group-hover:scale-105 group-active:scale-105"
+                                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-800 group-hover:scale-105 group-active:scale-105"
                                             />
 
                                             {/* Gradient Overlay */}
-                                            <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80 md:opacity-60 md:group-hover:opacity-90 transition-opacity duration-500"></div>
+                                            <div className="absolute inset-x-0 bottom-0 h-2/3 bg-linear-to-t from-black via-black/40 to-transparent opacity-80 md:opacity-60 md:group-hover:opacity-90 transition-opacity duration-500"></div>
 
                                             {/* Active Overlay */}
                                             <div className="absolute inset-0 bg-gold/20 mix-blend-overlay opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-500"></div>

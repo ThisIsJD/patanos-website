@@ -39,7 +39,7 @@ function Hero() {
                     className="w-full h-full object-cover object-center"
                 />
                 <div className="absolute inset-0 bg-bg-primary/70 mix-blend-multiply"></div>
-                <div className="absolute inset-0 bg-gradient-to-t from-bg-primary via-transparent to-transparent"></div>
+                <div className="absolute inset-0 bg-linear-to-t from-bg-primary via-transparent to-transparent"></div>
             </div>
 
             <motion.div

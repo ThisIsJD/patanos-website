@@ -15,12 +15,12 @@ import { useState } from 'react';
 function MenuCard({ name, description, sizes, imageSrc, imageAlt, category }) {
   const [imageLoaded, setImageLoaded] = useState(false);
   return (
-    <article className="relative w-full aspect-[3/4] sm:aspect-[4/5] rounded-xl sm:rounded-2xl overflow-hidden bg-bg-secondary border-2 border-gold/40 group cursor-pointer transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_0_30px_rgba(245,192,0,0.3)] active:shadow-[0_0_20px_rgba(245,192,0,0.2)] hover:border-gold active:border-gold flex flex-col items-center justify-between p-2.5 pb-3 sm:p-4 sm:pb-6">
+    <article className="relative w-full aspect-3/4 sm:aspect-4/5 rounded-xl sm:rounded-2xl overflow-hidden bg-bg-secondary border-2 border-gold/40 group cursor-pointer transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_0_30px_rgba(245,192,0,0.3)] active:shadow-[0_0_20px_rgba(245,192,0,0.2)] hover:border-gold active:border-gold flex flex-col items-center justify-between p-2.5 pb-3 sm:p-4 sm:pb-6">
 
       {/* Product Image (Floating) */}
       <div className="w-full h-1/2 relative flex items-center justify-center mt-1 sm:mt-2">
         {/* Subtle glow behind image on hover */}
-        <div className="absolute w-full h-full bg-[#141414] animate-pulse rounded-xl sm:rounded-2xl" style={{ display: imageLoaded ? 'none' : 'block' }}></div>
+        <div className="absolute w-full h-full bg-bg-secondary animate-pulse rounded-xl sm:rounded-2xl" style={{ display: imageLoaded ? 'none' : 'block' }}></div>
         <div className="absolute w-3/4 h-3/4 bg-gold/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-500"></div>
         <img
           src={imageSrc}
@@ -35,12 +35,12 @@ function MenuCard({ name, description, sizes, imageSrc, imageAlt, category }) {
 
       {/* Bottom Content Area */}
       <div className="flex flex-col items-center w-full mt-2 sm:mt-4 text-center">
-        <h3 className="font-display text-xs sm:text-lg tracking-widest text-text-primary uppercase drop-shadow-md line-clamp-2 min-h-[32px] sm:min-h-[50px] flex items-center justify-center leading-tight">
+        <h3 className="font-display text-xs sm:text-lg tracking-widest text-text-primary uppercase drop-shadow-md line-clamp-2 min-h-8 sm:min-h-12.5 flex items-center justify-center leading-tight">
           {name}
         </h3>
 
         {/* Divider line before prices */}
-        <div className="w-6 sm:w-8 h-[1px] bg-gold/40 my-1.5 sm:my-3"></div>
+        <div className="w-6 sm:w-8 h-px bg-gold/40 my-1.5 sm:my-3"></div>
 
         {/* Price Area */}
         {(!sizes || sizes.length === 0) ? null :

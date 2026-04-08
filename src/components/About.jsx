@@ -87,11 +87,11 @@ function About() {
                         variants={imageVariants}
                     >
                         <div className="relative rounded-2xl overflow-hidden shadow-2xl group border border-gold border-opacity-30">
-                            <div className="absolute inset-0 bg-gradient-to-tr from-gold/10 to-transparent mix-blend-overlay z-10 transition-opacity duration-500 group-hover:opacity-0 group-active:opacity-0"></div>
+                            <div className="absolute inset-0 bg-linear-to-tr from-gold/10 to-transparent mix-blend-overlay z-10 transition-opacity duration-500 group-hover:opacity-0 group-active:opacity-0"></div>
                             <img
                                 src={storeImage}
                                 alt="Patanos Sip Sensations community hangout"
-                                className="w-full h-auto object-cover aspect-[4/3] transform transition-transform duration-700 group-hover:scale-105 group-active:scale-105"
+                                className="w-full h-auto object-cover aspect-4/3 transform transition-transform duration-700 group-hover:scale-105 group-active:scale-105"
                                 loading="lazy"
                             />
                         </div>
